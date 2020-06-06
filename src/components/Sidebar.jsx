@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 
+//Object map location hiện tại với key của menu
 const tabRoute = {
     '/home': '1',
     '/enrolled': '2',

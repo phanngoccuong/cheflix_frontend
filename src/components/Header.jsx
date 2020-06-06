@@ -5,10 +5,10 @@ import { Link, useLocation } from 'react-router-dom';
 
 import logo from '../logo.svg';
 
+//Object map location hiện tại với key của menu
 const tabRoute = {
     '/profile': '1'
 }
-
 
 function Header() {
     return (
