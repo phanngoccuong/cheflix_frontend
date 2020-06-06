@@ -1,6 +1,12 @@
 import React from 'react';
-
 import { Layout, Menu } from 'antd';
+import { Link, useLocation } from 'react-router-dom';
+
+const tabRoute = {
+    '/home': '1',
+    '/enrolled': '2',
+    '/opened': '3'
+}
 
 function Sidebar() {
     return (
@@ -16,12 +22,18 @@ function Sidebar() {
         >
             <Menu
                 mode="inline"
-                defaultSelectedKeys={['1']}
+                selectedKeys={[tabRoute[`/${useLocation().pathname.split('/')[1]}`]]}
                 style={{ height: '100%', borderRight: 0 }}
             >
-                <Menu.Item key="1">ホーム</Menu.Item>
-                <Menu.Item key="2">参加してるクラス</Menu.Item>
-                <Menu.Item key="3">自分のクラス</Menu.Item>
+                <Menu.Item key="1">
+                    <Link to="/home">ホーム</Link>
+                </Menu.Item>
+                <Menu.Item key="2">
+                    <Link to="/enrolled">参加してるクラス</Link>
+                </Menu.Item>
+                <Menu.Item key="3">
+                    <Link to="/opened">自分のクラス</Link>
+                </Menu.Item>
             </Menu>
         </Layout.Sider>
     );
