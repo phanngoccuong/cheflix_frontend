@@ -4,12 +4,14 @@ import { Link, useLocation } from 'react-router-dom';
 
 //Object map location hiện tại với key của menu
 const tabRoute = {
+    '': '1',
     '/home': '1',
     '/enrolled': '2',
     '/opened': '3'
 }
 
 function Sidebar() {
+    const location = useLocation();
     return (
         <Layout.Sider
             width={200}
@@ -23,7 +25,7 @@ function Sidebar() {
         >
             <Menu
                 mode="inline"
-                selectedKeys={[tabRoute[`/${useLocation().pathname.split('/')[1]}`]]}
+                selectedKeys={[tabRoute[`/${location.pathname.split('/')[1]}`]]}
                 style={{ height: '100%', borderRight: 0 }}
             >
                 <Menu.Item key="1">
