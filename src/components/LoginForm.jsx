@@ -1,6 +1,10 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { authActions } from '../actions';
 
 const layout = {
     labelCol: {
@@ -11,9 +15,23 @@ const layout = {
     },
 };
 
-function LoginForm() {
+const mapStateToProps = (state) => {
+    return {
+        ...state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators({ ...authActions }, dispatch),
+        dispatch
+    }
+}
+
+function LoginForm(props) {
+    let history = useHistory();
     const onFinish = values => {
-        console.log('Success:', values);
+        props.actions.signIn(values.email, values.password, history);
     };
 
     const onFinishFailed = errorInfo => {
@@ -32,7 +50,7 @@ function LoginForm() {
             <Form.Item>
                 <Form.Item
                     label="ユーザーID"
-                    name="username"
+                    name="email"
                     rules={[
                         {
                             required: true,
@@ -64,4 +82,4 @@ function LoginForm() {
     );
 }
 
-export default LoginForm;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

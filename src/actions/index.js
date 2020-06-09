@@ -1,4 +1,4 @@
-import { axios } from '../utils';
+import { axios, history } from '../utils';
 import * as authActions from './auth';
 import * as userActions from './user';
 import { } from './user';
@@ -9,11 +9,15 @@ const resetState = () => {
     }
 }
 
-const signOut = (navigate) => {
-    return async (dispatch) => {
+const signOut = (history) => {
+    return (dispatch) => {
         dispatch(resetState());
+        // remove token from axios header
         axios.removeToken();
-        dispatch(navigate);
+        // remove from local storage
+        localStorage.removeItem('token');
+        // redirect to login
+        history.push('/login');
     }
 }
 

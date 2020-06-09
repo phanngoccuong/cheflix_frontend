@@ -7,11 +7,12 @@ import './index.css';
 import App from './App';
 import { store } from './store';
 import * as serviceWorker from './serviceWorker';
+import { history } from './utils';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter history={history}>
         <App />
       </BrowserRouter>
     </Provider>

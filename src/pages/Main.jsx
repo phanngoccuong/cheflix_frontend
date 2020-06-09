@@ -1,13 +1,15 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { Header, Sidebar } from '../components';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { isAuthenticated } from '../utils';
 
 const { Content } = Layout;
 
 function Main() {
     return (
+        isAuthenticated() ?
         <div>
             <Layout>
                 <Header />
@@ -15,7 +17,7 @@ function Main() {
                     <Sidebar />
                     <Content style={{ marginLeft: 200, marginTop: 64, minHeight: '100vh' }}>
                         <Switch>
-                            <Route path={"/home"}>
+                            <Route path="/home">
                                 Home
                             </Route>
                             <Route path="/enrolled">
@@ -37,7 +39,8 @@ function Main() {
                     </Content>
                 </Layout>
                 </Layout>
-        </div>
+        </div> :
+        <Redirect to="/login" />
     );
 }
 

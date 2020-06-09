@@ -1,4 +1,5 @@
-import { axios } from '../utils';
+
+import { axios, history } from '../utils';
 
 const signInRequest = () => {
     return {
@@ -24,7 +25,7 @@ const signInFailure = (message) => {
     }
 }
 
-const signIn = (email, password, navigate) => {
+const signIn = (email, password, history) => {
     return async (dispatch) => {
         dispatch(signInRequest());
         try {
@@ -33,11 +34,15 @@ const signIn = (email, password, navigate) => {
                 password
             }).then((response) => response.data);
             dispatch(signInSuccess(result.data.token));
+            // put token in local storage
+            localStorage.setItem('token', result.data.token);
             // insert token in every axios request
             axios.injectToken(result.data.token);
-            dispatch(navigate);
+            // redirect to home
+            history.push('/');
         } catch (e) {
-            dispatch(signInFailure(e.response.data.message));
+            console.log(e);
+            dispatch(signInFailure('failed'));
         }
     }
 }

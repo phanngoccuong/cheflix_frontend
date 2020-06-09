@@ -5,9 +5,13 @@ import logo from './logo.svg';
 import './App.css';
 import { Header } from './components';
 import { Main, Login } from './pages';
-
+import { axios, isAuthenticated } from './utils';
 
 function App() {
+  // Check if authenticated and add bearer token to every request
+  if (isAuthenticated()) {
+    axios.injectToken(localStorage.getItem('token'));
+  }
   return (
     <div className="App">
       <Switch>

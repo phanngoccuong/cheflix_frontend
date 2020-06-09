@@ -1,7 +1,11 @@
 import React from 'react';
 import { Layout, Row, Col, Menu } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { signOut } from '../actions';
 
 import logo from '../logo.svg';
 
@@ -10,7 +14,24 @@ const tabRoute = {
     '/profile': '1'
 }
 
-function Header() {
+const mapStateToProps = (state) => {
+    return {
+        ...state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators({ signOut }, dispatch),
+        dispatch
+    }
+}
+
+function Header(props) {
+    let history = useHistory();
+    const handleLogout = () => {
+        return props.actions.signOut(history);
+    }
     return (
         <Layout.Header
             style={{
@@ -38,14 +59,12 @@ function Header() {
                                 プロフィール
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="2">
-                            <Link to="/login">
-                                <LogoutOutlined
-                                    style={{
-                                        fontSize: 20
-                                    }}
-                                />
-                            </Link>
+                        <Menu.Item key="2" onClick={handleLogout}>
+                            <LogoutOutlined
+                                style={{
+                                    fontSize: 20
+                                }}
+                            />
                         </Menu.Item>
                     </Menu>
                 </Col>
@@ -54,4 +73,4 @@ function Header() {
     );
 }
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
