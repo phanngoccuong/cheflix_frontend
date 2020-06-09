@@ -1,9 +1,9 @@
 import React from 'react';
-import { Card, Row, Col } from 'antd';
-import { Redirect } from 'react-router-dom';
+import { Row, Col } from 'antd';
+import { Redirect, Switch, Route } from 'react-router-dom';
 
 import logo from '../logo.svg';
-import { LoginForm } from '../components';
+import { LoginForm, RegisterForm } from '../components';
 import { isAuthenticated } from '../utils';
 
 function Login() {
@@ -14,9 +14,10 @@ function Login() {
             <Row justify="center">
                 <Col span={8}>
                     <img src={logo} className="App-logo App-logo-big" alt="logo" />
-                    <Card title="サインイン" extra={<a href="#">サインアップ</a>} style={{ width: '100%' }}>
-                        <LoginForm />
-                    </Card>
+                    <Switch>
+                            <Route path="/login/register" component={RegisterForm}/>
+                            <Route path="/login" component={LoginForm} />
+                    </Switch>
                 </Col>
             </Row>
         </div>

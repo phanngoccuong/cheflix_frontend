@@ -28,17 +28,17 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-function LoginForm(props) {
+function RegisterForm(props) {
     let history = useHistory();
     const onFinish = values => {
-        props.actions.signIn(values.email, values.password, history);
+        props.actions.signUp(values.email, values.password);
     };
 
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
     };
     return (
-        <Card title="サインイン" extra={<Link to="/login/register" >サインアップ</Link>} style={{ width: '100%' }}>
+        <Card title="サインアップ" extra={<Link to="/login" >サインイン</Link>} style={{ width: '100%' }}>
             <Form
                 {...layout}
                 name="basic"
@@ -73,6 +73,18 @@ function LoginForm(props) {
                     >
                         <Input.Password />
                     </Form.Item>
+                    <Form.Item
+                        label="パスワード確認"
+                        name="passwordConfirmation"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'パスワード確認を入力してください！',
+                            },
+                        ]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
                             サインイン
@@ -84,4 +96,4 @@ function LoginForm(props) {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);

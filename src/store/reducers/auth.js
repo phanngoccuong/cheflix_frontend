@@ -1,6 +1,7 @@
 const initialState = {
     token: null,
-    isLoggingIn: false
+    isLoggingIn: false,
+    isRegistering: true
 }
 
 const authReducer = (state = initialState, action) => {
@@ -23,6 +24,25 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 message: action.payload.message,
                 isLoggingIn: false
+            };
+        }
+        case 'SIGN_UP_REQUEST': {
+            return {
+                ...state,
+                isRegistering: true
+            };
+        }
+        case 'SIGN_UP_SUCCESS': {
+            return {
+                ...state,
+                isRegistering: false
+            };
+        }
+        case 'SIGN_UP_FAILURE': {
+            return {
+                ...state,
+                message: action.payload.message,
+                isRegistering: false
             };
         }
         case 'RESET_STATE': {

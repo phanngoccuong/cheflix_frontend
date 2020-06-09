@@ -47,6 +47,46 @@ const signIn = (email, password, history) => {
     }
 }
 
+const signUpRequest = () => {
+    return {
+        type: 'SIGN_UP_REQUEST'
+    }
+}
+
+const signUpSuccess = () => {
+    return {
+        type: 'SIGN_UP_SUCCESS',
+        payload: {
+        }
+    }
+}
+
+const signUpFailure = (message) => {
+    return {
+        type: 'SIGN_UP_FAILURE',
+        payload: {
+            message
+        }
+    }
+}
+
+const signUp = (email, password) => {
+    return async (dispatch) => {
+        dispatch(signUpRequest());
+        try {
+            let result = await axios.client.post('/users', {
+                email,
+                password
+            }).then((response) => response.data);
+            dispatch(signUpSuccess());
+        } catch (e) {
+            console.log(e);
+            dispatch(signUpFailure('failed'));
+        }
+    }
+}
+
 export {
-    signIn
+    signIn,
+    signUp
 }
