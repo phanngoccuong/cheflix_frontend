@@ -47,7 +47,7 @@ function RegisterForm(props) {
         }
     }
     const onFinish = values => {
-        props.actions.signUp(values.email, values.password, showMessage);
+        props.actions.signUp(values.email, values.password, history, showMessage);
     };
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);

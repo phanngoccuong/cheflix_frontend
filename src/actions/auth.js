@@ -71,7 +71,7 @@ const signUpFailure = (errorCode) => {
     }
 }
 
-const signUp = (email, password, showMessage) => {
+const signUp = (email, password, history, showMessage) => {
     return async (dispatch) => {
         dispatch(signUpRequest());
         try {
@@ -80,6 +80,7 @@ const signUp = (email, password, showMessage) => {
                 password
             }).then((response) => response.data);
             dispatch(signUpSuccess());
+            history.push('/login');
             showMessage();
         } catch (e) {
             dispatch(signUpFailure(e.response.data.errorCode));
