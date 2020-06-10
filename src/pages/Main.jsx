@@ -4,6 +4,8 @@ import { Layout, Menu } from 'antd';
 import { Header, Sidebar } from '../components';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
+import Profile from './Profile';
+
 const { Content } = Layout;
 
 function Main() {
@@ -25,7 +27,7 @@ function Main() {
                                 Opened
                             </Route>
                             <Route path="/profile">
-                                Profile
+                                <Profile />
                             </Route>
                             <Route exact path="/">
                                 <Redirect to="/home" />
