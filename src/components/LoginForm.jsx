@@ -1,10 +1,12 @@
 import React from 'react';
-import { Card, Form, Input, Button } from 'antd';
+import { Card, Form, Input, Button, Spin, Typography, message } from 'antd';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { authActions } from '../actions';
+
+const { Text } = Typography;
 
 const layout = {
     labelCol: {
@@ -30,13 +32,34 @@ const mapDispatchToProps = (dispatch) => {
 
 function LoginForm(props) {
     let history = useHistory();
+    const showMessage = (errorCode) => {
+        if (errorCode) {
+            switch (errorCode) {
+                case 'IncorrectEmail': {
+                    return message.error('間違ったメールまたはパスワード!');
+                }
+                case 'IncorrectPassword': {
+                    return message.error('間違ったメールまたはパスワード!');
+                }
+                default: {
+                    return;
+                }
+            }
+        } else {
+            return message.success('サインインしました！')
+        }
+    }
     const onFinish = values => {
-        props.actions.signIn(values.email, values.password, history);
+        props.actions.signIn(values.email, values.password, history, showMessage);
     };
-
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
     };
+    const renderSpinner = () => {
+        if (props.auth.isLoggingIn) {
+            return <Spin />;
+        }
+    }
     return (
         <Card title="サインイン" extra={<Link to="/login/register" >サインアップ</Link>} style={{ width: '100%' }}>
             <Form
@@ -57,6 +80,10 @@ function LoginForm(props) {
                                 required: true,
                                 message: 'ユーザーIDを入力してください！',
                             },
+                            {
+                                type: 'email',
+                                message: 'メールである必要があります!'
+                            }
                         ]}
                     >
                         <Input />
@@ -78,6 +105,7 @@ function LoginForm(props) {
                             サインイン
                     </Button>
                     </Form.Item>
+                    {renderSpinner()}
                 </Form.Item>
             </Form>
         </Card>

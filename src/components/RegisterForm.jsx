@@ -1,10 +1,12 @@
 import React from 'react';
-import { Card, Form, Input, Button } from 'antd';
+import { Card, Form, Input, Button, Spin, Typography, message } from 'antd';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { authActions } from '../actions';
+
+const { Text } = Typography;
 
 const layout = {
     labelCol: {
@@ -30,13 +32,31 @@ const mapDispatchToProps = (dispatch) => {
 
 function RegisterForm(props) {
     let history = useHistory();
+    const showMessage = (errorCode) => {
+        if (errorCode) {
+            switch (errorCode) {
+                case 'UsedEmail': {
+                    return message.error('このメールは既に使用されています!');
+                }
+                default: {
+                    return;
+                }
+            }
+        } else {
+            return message.success('サインアップしました！');
+        }
+    }
     const onFinish = values => {
-        props.actions.signUp(values.email, values.password);
+        props.actions.signUp(values.email, values.password, showMessage);
     };
-
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
     };
+    const renderSpinner = () => {
+        if (props.auth.isRegistering) {
+            return <Spin />;
+        }
+    }
     return (
         <Card title="サインアップ" extra={<Link to="/login" >サインイン</Link>} style={{ width: '100%' }}>
             <Form
@@ -87,9 +107,10 @@ function RegisterForm(props) {
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
-                            サインイン
-                    </Button>
+                            サインアップ
+                        </Button>
                     </Form.Item>
+                    {renderSpinner()}
                 </Form.Item>
             </Form>
         </Card>

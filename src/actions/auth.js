@@ -16,16 +16,16 @@ const signInSuccess = (token) => {
     }
 }
 
-const signInFailure = (message) => {
+const signInFailure = (errorCode) => {
     return {
         type: 'SIGN_IN_FAILURE',
         payload: {
-            message
+            errorCode
         }
     }
 }
 
-const signIn = (email, password, history) => {
+const signIn = (email, password, history, showMessage) => {
     return async (dispatch) => {
         dispatch(signInRequest());
         try {
@@ -40,9 +40,10 @@ const signIn = (email, password, history) => {
             axios.injectToken(result.data.token);
             // redirect to home
             history.push('/');
+            showMessage();
         } catch (e) {
-            console.log(e);
-            dispatch(signInFailure('failed'));
+            dispatch(signInFailure(e.response.data.errorCode));
+            showMessage(e.response.data.errorCode);
         }
     }
 }
@@ -61,16 +62,16 @@ const signUpSuccess = () => {
     }
 }
 
-const signUpFailure = (message) => {
+const signUpFailure = (errorCode) => {
     return {
         type: 'SIGN_UP_FAILURE',
         payload: {
-            message
+            errorCode
         }
     }
 }
 
-const signUp = (email, password) => {
+const signUp = (email, password, showMessage) => {
     return async (dispatch) => {
         dispatch(signUpRequest());
         try {
@@ -79,9 +80,10 @@ const signUp = (email, password) => {
                 password
             }).then((response) => response.data);
             dispatch(signUpSuccess());
+            showMessage();
         } catch (e) {
-            console.log(e);
-            dispatch(signUpFailure('failed'));
+            dispatch(signUpFailure(e.response.data.errorCode));
+            showMessage(e.response.data.errorCode);
         }
     }
 }
