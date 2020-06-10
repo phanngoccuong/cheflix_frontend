@@ -1,0 +1,22 @@
+.profile{
+	padding:15px;
+	margin:15px;
+	text-align: left;
+	font-size: 16px;
+}
+
+.profile .profile_pic{
+	width:100%;
+	height: 500px;
+	text-align: center;
+}
+.profile .profile_pic img{
+	max-width: 100%;
+	height: 100%; 
+	object-fit: cover;
+}
+
+.profilemg  .ant-descriptions-title{
+	font-size: 24px;
+
+}
