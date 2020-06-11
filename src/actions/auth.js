@@ -7,11 +7,12 @@ const signInRequest = () => {
     }
 }
 
-const signInSuccess = (token) => {
+const signInSuccess = ({ token, id }) => {
     return {
         type: 'SIGN_IN_SUCCESS',
         payload: {
-            token
+            token,
+            id
         }
     }
 }
@@ -33,9 +34,11 @@ const signIn = (email, password, history, showMessage) => {
                 email,
                 password
             }).then((response) => response.data);
-            dispatch(signInSuccess(result.data.token));
+            dispatch(signInSuccess(result.data));
             // put token in local storage
             localStorage.setItem('token', result.data.token);
+            // put id in local storage
+            localStorage.setItem('id', result.data.id);
             // insert token in every axios request
             axios.injectToken(result.data.token);
             // redirect to home

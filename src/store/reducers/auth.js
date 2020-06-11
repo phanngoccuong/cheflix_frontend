@@ -2,7 +2,7 @@ const initialState = {
     token: null,
     isLoggingIn: false,
     isRegistering: false,
-    test: 'hello world'
+    id: null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -17,6 +17,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: action.payload.token,
+                id: action.payload.id,
                 isLoggingIn: false,
                 logInSuccess: true
             };
