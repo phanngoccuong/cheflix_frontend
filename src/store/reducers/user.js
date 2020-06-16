@@ -1,5 +1,6 @@
 const initialState = {
-    isFetching: false
+    isFetching: false,
+    isUpdating: false
 }
 
 const userReducer = (state = initialState, action) => {
@@ -22,6 +23,26 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 message: action.payload.message,
                 isFetching: false
+            }
+        }
+        case 'UPDATE_USER_REQUEST': {
+            return {
+                ...state,
+                isUpdating: true
+            }
+        }
+        case 'UPDATE_USER_SUCCESS': {
+            return {
+                ...state,
+                ...action.payload.user,
+                isUpdating: false,
+            }
+        }
+        case 'UPDATE_USER_FAILURE': {
+            return {
+                ...state,
+                message: action.payload.message,
+                isUpdating: false
             }
         }
         case 'RESET_STATE': {

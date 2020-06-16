@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { EditProfileModal } from "../../components";
 import "./Profile.css"
-import profileDefault from '../../images/profile.jpeg';
+import profileDefault from '../../images/default-profile.png';
 import { userActions } from '../../actions';
 
 const mapStateToProps = (state) => {
@@ -75,7 +75,6 @@ class Profile extends Component {
 		this.props.actions.getUser(localStorage.getItem('id'));
 	}
 	render() {
-
 		return (
 			<Layout className="profile">
 				<Row>
@@ -89,7 +88,7 @@ class Profile extends Component {
 							className="profile_pic"
 							cover={<img alt="example" src={profileDefault} />}
 						>
-							<Meta title={"名前: " + this.props.user.firstName} />
+							<Meta title={this.props.user.firstName || this.props.user.email} />
 						</Card>
 					</Col>
 					<Col span={1} >

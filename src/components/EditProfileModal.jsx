@@ -71,7 +71,7 @@ class EditProfileModal extends Component {
 					<Form.Item name="address" label="アドレス">
 						<Input defaultValue={this.props.user.address} />
 					</Form.Item>
-					<Form.Item name="dateOfBirth" label="生年月日" rules={[{ required: true }]}>
+					<Form.Item name="dateOfBirth" label="生年月日">
 						<DatePicker />
 					</Form.Item>
 					<Form.Item name="phoneNumber" label="電話番号">
