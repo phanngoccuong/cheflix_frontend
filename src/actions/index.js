@@ -1,7 +1,7 @@
 import { axios, history } from '../utils';
 import * as authActions from './auth';
 import * as userActions from './user';
-import { } from './user';
+import * as openedClassesActions from './openedClasses';
 
 const resetState = () => {
     return {
@@ -24,5 +24,6 @@ const signOut = (history) => {
 export {
     authActions,
     userActions,
+    openedClassesActions,
     signOut
 }

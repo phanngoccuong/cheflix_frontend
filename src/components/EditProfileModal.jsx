@@ -23,16 +23,16 @@ const validateMessages = {
 };
 
 const mapStateToProps = (state) => {
-    return {
-        ...state
-    }
+	return {
+		...state
+	}
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        actions: bindActionCreators({ ...userActions }, dispatch),
-        dispatch
-    }
+	return {
+		actions: bindActionCreators({ ...userActions }, dispatch),
+		dispatch
+	}
 }
 
 class EditProfileModal extends Component {
@@ -81,12 +81,6 @@ class EditProfileModal extends Component {
 					</Form.Item>
 					<Form.Item name="phoneNumber" label="電話番号">
 						<Input defaultValue={this.props.user.phoneNumber} />
-					</Form.Item>
-
-					<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-						<Button type="primary" htmlType="submit">
-							Submit
-					</Button>
 					</Form.Item>
 				</Form>
 			</Modal>

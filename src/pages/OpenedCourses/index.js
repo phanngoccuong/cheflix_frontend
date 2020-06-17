@@ -1,3 +1,3 @@
-import OpenedCourses from './OpenedCourses';
+import OpenedClasses from './OpenedClasses';
 
-export default OpenedCourses;
+export default OpenedClasses;

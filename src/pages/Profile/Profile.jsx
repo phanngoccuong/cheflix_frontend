@@ -78,7 +78,6 @@ class Profile extends Component {
 		return (
 			<Layout className="profile">
 				<Row>
-
 					<Col span={24}>
 						<h1>ユーザー</h1>
 					</Col>
