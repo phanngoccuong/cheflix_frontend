@@ -45,6 +45,7 @@ const signIn = (email, password, history, showMessage) => {
             history.push('/');
             showMessage();
         } catch (e) {
+            console.log(e.response.data.errorCode);
             dispatch(signInFailure(e.response.data.errorCode));
             showMessage(e.response.data.errorCode);
         }

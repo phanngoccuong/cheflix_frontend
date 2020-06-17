@@ -33,6 +33,7 @@ const getUser = (id) => {
             let result = await axios.client.get(`/users/${id}`).then(response => response.data);
             dispatch(getUserSuccess(result.data.user));
         } catch (e) {
+            console.log(e.response.data.errorCode);
             dispatch(getUserFailure(e.response.data.errorCode));
         }
     }
@@ -68,6 +69,7 @@ const updateUser = (id, { address, phoneNumber, firstName, dateOfBirth }) => {
             }).then(response => response.data);
             dispatch(updateUserSuccess());
         } catch (e) {
+            console.log(e.response.data.errorCode);
             dispatch(updateUserFailure(e.response.data.errorCode));
         }
     }

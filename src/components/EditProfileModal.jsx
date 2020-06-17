@@ -42,6 +42,8 @@ class EditProfileModal extends Component {
 
 	}
 
+	formRef = React.createRef();
+
 	onFinish = values => {
 		this.props.actions.updateUser(localStorage.getItem('id'), values);
 		this.props.hideModal();
@@ -56,12 +58,15 @@ class EditProfileModal extends Component {
 			<Modal
 				title="情報を編集する"
 				visible={this.props.modalVisible}
-				onOk={this.props.hideModal}
+				onOk={() => {
+					this.formRef.current.submit();
+					this.props.hideModal();
+				}}
 				onCancel={this.props.hideModal}
 				okText="確認"
 				cancelText="キャンセル"
 			>
-				<Form {...layout} name="nest-messages" initialValues={{ remember: true }} onFinish={this.onFinish} onFinishFailed={this.onFinishFailed} validateMessages={validateMessages}>
+				<Form {...layout} name="nest-messages" initialValues={{ remember: true }} onFinish={this.onFinish} onFinishFailed={this.onFinishFailed} validateMessages={validateMessages} ref={this.formRef}>
 					{/* <Form.Item name="password" label="パスワード" rules={[{ required: true }]}>
 						<Input.Password />
 					</Form.Item> */}

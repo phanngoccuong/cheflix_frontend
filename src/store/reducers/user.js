@@ -21,7 +21,7 @@ const userReducer = (state = initialState, action) => {
         case 'GET_USER_FAILURE': {
             return {
                 ...state,
-                message: action.payload.message,
+                errorCode: action.payload.errorCode,
                 isFetching: false
             }
         }
@@ -34,14 +34,13 @@ const userReducer = (state = initialState, action) => {
         case 'UPDATE_USER_SUCCESS': {
             return {
                 ...state,
-                ...action.payload.user,
                 isUpdating: false,
             }
         }
         case 'UPDATE_USER_FAILURE': {
             return {
                 ...state,
-                message: action.payload.message,
+                errorCode: action.payload.errorCode,
                 isUpdating: false
             }
         }

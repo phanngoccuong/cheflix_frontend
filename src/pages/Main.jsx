@@ -6,6 +6,7 @@ import { Header, Sidebar } from '../components';
 import { isAuthenticated } from '../utils';
 
 import Profile from './Profile';
+import OpenedCourses from './OpenedCourses';
 
 const { Content } = Layout;
 
@@ -26,7 +27,7 @@ function Main() {
                                 Enrolled
                             </Route>
                             <Route path="/opened">
-                                Opened
+                                <OpenedCourses />
                             </Route>
                             <Route path="/profile">
                                 <Profile />
